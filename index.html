@@ -1,0 +1,1281 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ابزارهای تیزهوشان | ریاضی و هوش</title>
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/iransans-web@latest/css/iransans.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #3498db;
+            --secondary: #2ecc71;
+            --dark: #2c3e50;
+            --light: #f8f9fa;
+            --border: #ddd;
+            --white: #ffffff;
+            --sixth-primary: #e67e22;
+            --sixth-secondary: #d35400;
+            --ninth-primary: #9b59b6;
+            --ninth-secondary: #8e44ad;
+            --booklet1-bg: #e8f4fc;
+            --booklet2-bg: #f5e8fc;
+            --sample: #9b59b6;
+        }
+        
+        body {
+            font-family: 'IRANSans', sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+            padding: 20px;
+            margin: 0;
+        }
+        
+        .header-container {
+            max-width: 1200px;
+            margin: 20px auto;
+            text-align: center;
+            padding: 15px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8eb 100%);
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .header-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--dark);
+            margin-bottom: 10px;
+        }
+        
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin-top: 10px;
+        }
+        
+        .social-icons a {
+            color: var(--dark);
+            font-size: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .social-icons a:hover {
+            transform: scale(1.2);
+        }
+        
+        .instagram-icon:hover {
+            color: #E1306C;
+        }
+        
+        .telegram-icon:hover {
+            color: #0088cc;
+        }
+        
+        .user-id {
+            font-size: 16px;
+            color: var(--dark);
+            margin-right: 5px;
+        }
+        
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .grade-selector {
+            background-color: var(--white);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        
+        .grade-selector label {
+            font-weight: bold;
+            margin-left: 10px;
+        }
+        
+        .grade-selector select {
+            padding: 8px 15px;
+            border-radius: 5px;
+            border: 1px solid var(--border);
+            font-family: 'IRANSans', sans-serif;
+        }
+        
+        .tool-container {
+            background-color: var(--white);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            display: none;
+        }
+        
+        .active-tool {
+            display: block;
+        }
+        
+        .tool-header {
+            text-align: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--primary);
+        }
+        
+        .sixth-header {
+            border-bottom-color: var(--sixth-primary);
+        }
+        
+        .ninth-header {
+            border-bottom-color: var(--ninth-primary);
+        }
+        
+        .tool-title {
+            font-size: 20px;
+            color: var(--dark);
+            margin: 0;
+        }
+        
+        /* استایل‌های مشترک ماشین حساب درصد */
+        .calculator-body {
+            padding: 20px;
+        }
+        
+        .booklet {
+            margin-bottom: 20px;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .sixth-booklet-1 {
+            background-color: rgba(230, 126, 34, 0.1);
+            border: 1px solid var(--sixth-primary);
+        }
+        
+        .sixth-booklet-2 {
+            background-color: rgba(211, 84, 0, 0.1);
+            border: 1px solid var(--sixth-secondary);
+        }
+        
+        .ninth-booklet-1 {
+            background-color: rgba(155, 89, 182, 0.1);
+            border: 1px solid var(--ninth-primary);
+        }
+        
+        .ninth-booklet-2 {
+            background-color: rgba(142, 68, 173, 0.1);
+            border: 1px solid var(--ninth-secondary);
+        }
+        
+        .booklet-title {
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 10px 15px;
+            margin: 0;
+        }
+        
+        .sixth-booklet-1 .booklet-title {
+            background-color: var(--sixth-primary);
+        }
+        
+        .sixth-booklet-2 .booklet-title {
+            background-color: var(--sixth-secondary);
+        }
+        
+        .ninth-booklet-1 .booklet-title {
+            background-color: var(--ninth-primary);
+        }
+        
+        .ninth-booklet-2 .booklet-title {
+            background-color: var(--ninth-secondary);
+        }
+        
+        .subject-box {
+            background-color: var(--white);
+            border-radius: 6px;
+            padding: 15px;
+            margin: 15px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .subject-title {
+            color: var(--primary);
+            margin-top: 0;
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .sixth-subject .subject-title {
+            color: var(--sixth-primary);
+        }
+        
+        .ninth-subject .subject-title {
+            color: var(--ninth-primary);
+        }
+        
+        .input-group {
+            margin-bottom: 15px;
+        }
+        
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        .input-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--border);
+            border-radius: 5px;
+            font-family: 'IRANSans', sans-serif;
+        }
+        
+        .grade-input {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #f5f7fa;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+        
+        .grade-input h4 {
+            margin-top: 0;
+            color: var(--primary);
+            border-bottom: 1px solid var(--primary);
+            padding-bottom: 5px;
+        }
+        
+        .sixth-grade h4 {
+            color: var(--sixth-primary);
+            border-bottom: 1px solid var(--sixth-primary);
+        }
+        
+        .ninth-grade h4 {
+            color: var(--ninth-primary);
+            border-bottom: 1px solid var(--ninth-primary);
+        }
+        
+        .calculate-btn {
+            width: 100%;
+            padding: 12px;
+            color: var(--white);
+            border: none;
+            border-radius: 5px;
+            font-family: 'IRANSans', sans-serif;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 15px 0;
+            transition: background-color 0.3s;
+        }
+        
+        .sixth-calculate {
+            background-color: var(--sixth-primary);
+        }
+        
+        .sixth-calculate:hover {
+            background-color: var(--sixth-secondary);
+        }
+        
+        .ninth-calculate {
+            background-color: var(--ninth-primary);
+        }
+        
+        .ninth-calculate:hover {
+            background-color: var(--ninth-secondary);
+        }
+        
+        .results-container {
+            margin-top: 20px;
+        }
+        
+        .result-item {
+            background-color: var(--white);
+            border-radius: 8px;
+            padding: 0;
+            margin-bottom: 15px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border: 1px solid var(--border);
+        }
+        
+        .result-content {
+            position: relative;
+            z-index: 2;
+            padding: 15px;
+        }
+        
+        .progress-full {
+            position: absolute;
+            top: 0;
+            right: 0;
+            height: 100%;
+            width: 100%;
+            background-color: rgba(46, 204, 113, 0.2);
+        }
+        
+        .progress-bar {
+            position: absolute;
+            top: 0;
+            right: 0;
+            height: 100%;
+            background-color: var(--secondary);
+            width: 0%;
+            transition: width 0.5s ease;
+            z-index: 1;
+        }
+        
+        .sixth-progress {
+            background-color: var(--sixth-secondary);
+        }
+        
+        .ninth-progress {
+            background-color: var(--ninth-secondary);
+        }
+        
+        .result-text {
+            position: relative;
+            z-index: 3;
+            font-weight: bold;
+        }
+        
+        .final-result {
+            color: var(--white);
+            text-align: center;
+            font-size: 18px;
+        }
+        
+        .sixth-final {
+            background-color: var(--sixth-primary);
+        }
+        
+        .ninth-final {
+            background-color: var(--ninth-primary);
+        }
+        
+        .sample-result {
+            background-color: var(--sample);
+        }
+        
+        /* استایل‌های بخش کف قبولی */
+        .selection-panel {
+            background-color: var(--white);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--border);
+            border-radius: 5px;
+            font-family: 'IRANSans', sans-serif;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: var(--primary);
+            color: var(--white);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'IRANSans', sans-serif;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        
+        .sixth-btn {
+            background-color: var(--sixth-primary);
+        }
+        
+        .sixth-btn:hover {
+            background-color: var(--sixth-secondary);
+        }
+        
+        .ninth-btn {
+            background-color: var(--ninth-primary);
+        }
+        
+        .ninth-btn:hover {
+            background-color: var(--ninth-secondary);
+        }
+        
+        .school-results {
+            background-color: var(--white);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            display: none;
+        }
+        
+        .results-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .results-title {
+            font-size: 18px;
+            font-weight: bold;
+        }
+        
+        .results-count {
+            color: var(--primary);
+            font-weight: bold;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        
+        th, td {
+            padding: 12px 15px;
+            text-align: right;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+        
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+        
+        .sixth-row {
+            background-color: rgba(230, 126, 34, 0.05);
+        }
+        
+        .ninth-row {
+            background-color: rgba(155, 89, 182, 0.05);
+        }
+        
+        .no-results {
+            text-align: center;
+            padding: 30px;
+            color: #666;
+        }
+        
+        @media (max-width: 768px) {
+            th, td {
+                padding: 8px 10px;
+                font-size: 14px;
+            }
+            
+            .header-title {
+                font-size: 20px;
+            }
+            
+            .tool-title {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header-container">
+        <div class="header-title">ابزارهای تیزهوشان | ریاضی و هوش</div>
+        <div class="social-icons">
+            <span class="user-id">mohamadiriazi</span>
+            <a href="http://www.instagram.com/mohamadiriazi" class="instagram-icon" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="http://www.telegram.me/mohamadiriazi" class="telegram-icon" target="_blank"><i class="fab fa-telegram"></i></a>
+        </div>
+    </div>
+
+    <div class="main-container">
+        <!-- انتخاب پایه تحصیلی -->
+        <div class="grade-selector">
+            <label for="grade-select">پایه تحصیلی:</label>
+            <select id="grade-select" class="form-control">
+                <option value="">-- انتخاب پایه تحصیلی --</option>
+                <option value="sixth">ششم ابتدایی</option>
+                <option value="ninth">نهم متوسطه</option>
+            </select>
+        </div>
+
+        <!-- بخش ششم -->
+        <div id="sixth-tools" class="tool-container">
+            <!-- ماشین حساب درصد ششم -->
+            <div class="calculator-container">
+                <div class="tool-header sixth-header">
+                    <h2 class="tool-title">محاسبه درصد آزمون تیزهوشان ششم</h2>
+                </div>
+                
+                <div class="calculator-body">
+                    <!-- دفترچه اول - هوش (60 سوال - ضریب 3) -->
+                    <div class="booklet sixth-booklet-1">
+                        <h3 class="booklet-title">دفترچه اول - هوش (60 سوال - ضریب 3)</h3>
+                        
+                        <div class="subject-box">
+                            <div class="input-group">
+                                <label>تعداد پاسخ‌های درست:</label>
+                                <input type="number" id="sixth-iq-correct" min="0" max="60" value="0">
+                            </div>
+                            <div class="input-group">
+                                <label>تعداد پاسخ‌های غلط:</label>
+                                <input type="number" id="sixth-iq-wrong" min="0" max="60" value="0">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- دفترچه دوم - سرعت و دقت (60 سوال - ضریب 1) -->
+                    <div class="booklet sixth-booklet-2">
+                        <h3 class="booklet-title">دفترچه دوم - سرعت و دقت (60 سوال - ضریب 1)</h3>
+                        
+                        <div class="subject-box">
+                            <div class="input-group">
+                                <label>تعداد پاسخ‌های درست:</label>
+                                <input type="number" id="sixth-speed-correct" min="0" max="60" value="0">
+                            </div>
+                            <div class="input-group">
+                                <label>تعداد پاسخ‌های غلط:</label>
+                                <input type="number" id="sixth-speed-wrong" min="0" max="60" value="0">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="calculate-btn sixth-calculate" id="sixth-calculate-btn">محاسبه درصدها</button>
+                    
+                    <!-- نتایج -->
+                    <div class="results-container">
+                        <div class="result-item">
+                            <div class="progress-full"></div>
+                            <div class="progress-bar sixth-progress" id="sixth-progress-iq"></div>
+                            <div class="result-content">
+                                <div class="result-text" id="sixth-result-iq">دفترچه هوش: -</div>
+                            </div>
+                        </div>
+                        
+                        <div class="result-item">
+                            <div class="progress-full"></div>
+                            <div class="progress-bar sixth-progress" id="sixth-progress-speed"></div>
+                            <div class="result-content">
+                                <div class="result-text" id="sixth-result-speed">دفترچه سرعت و دقت: -</div>
+                            </div>
+                        </div>
+                        
+                        <div class="result-item final-result sixth-final">
+                            <div class="result-content">
+                                <div id="sixth-finalResult">درصد نهایی تیزهوشان: -</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- بررسی کف قبولی ششم -->
+            <div class="calculator-container">
+                <div class="tool-header sixth-header">
+                    <h2 class="tool-title">بررسی کف قبولی مدارس تیزهوشان ششم</h2>
+                </div>
+                
+                <div class="selection-panel">
+                    <div class="form-group">
+                        <label for="sixth-province">استان:</label>
+                        <select id="sixth-province" class="form-control">
+                            <option value="">-- انتخاب استان --</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="sixth-city">شهر:</label>
+                        <select id="sixth-city" class="form-control" disabled>
+                            <option value="">-- ابتدا استان را انتخاب کنید --</option>
+                        </select>
+                    </div>
+                    
+                    <button id="sixth-search-btn" class="btn sixth-btn" disabled>جستجو</button>
+                </div>
+                
+                <div class="school-results" id="sixth-results-container">
+                    <div class="results-header">
+                        <div class="results-title" id="sixth-results-title"></div>
+                        <div class="results-count" id="sixth-results-count"></div>
+                    </div>
+                    
+                    <div id="sixth-results-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>نام مدرسه</th>
+                                    <th>کف قبولی</th>
+                                    <th>جنسیت</th>
+                                </tr>
+                            </thead>
+                            <tbody id="sixth-table-body">
+                                <!-- Results will be filled by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div id="sixth-no-results" class="no-results" style="display: none;">
+                        موردی یافت نشد
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- بخش نهم -->
+        <div id="ninth-tools" class="tool-container">
+            <!-- ماشین حساب درصد نهم -->
+            <div class="calculator-container">
+                <div class="tool-header ninth-header">
+                    <h2 class="tool-title">محاسبه درصد آزمون تیزهوشان و نمونه دولتی نهم</h2>
+                </div>
+                
+                <div class="calculator-body">
+                    <!-- دفترچه اول - استعداد تحصیلی -->
+                    <div class="booklet ninth-booklet-1">
+                        <h3 class="booklet-title">دفترچه اول - استعداد تحصیلی</h3>
+                        
+                        <div class="subject-box ninth-subject">
+                            <h4 class="subject-title">ریاضی (15 سوال - ضریب 3)</h4>
+                            <div class="input-group">
+                                <label>تعداد پاسخ‌های درست:</label>
+                                <input type="number" id="ninth-math-correct" min="0" max="15" value="0">
+                            </div>
+                            <div class="input-group">
+                                <label>تعداد پاسخ‌های غلط:</label>
+                                <input type="number" id="ninth-math-wrong" min="0" max="15" value="0">
+                            </div>
+                        </div>
+                        
+                        <div class="subject-box ninth-subject">
+                            <h4 class="subject-title">علوم تجربی (15 سوال - ضریب 3)</h4>
+                            <div class="input-group">
+                                <label>تعداد پاسخ‌های درست:</label>
+                                <input type="number" id="ninth-science-correct" min="0" max="15" value="0">
+                            </div>
+                            <div class="input-group">
+                                <label>تعداد پاسخ‌های غلط:</label>
+                                <input type="number" id="ninth-science-wrong" min="0" max="15" value="0">
+                            </div>
+                        </div>
+                        
+                        <div class="subject-box ninth-subject">
+                            <h4 class="subject-title">فارسی (15 سوال - ضریب 2)</h4>
+                            <div class="input-group">
+                                <label>تعداد پاسخ‌های درست:</label>
+                                <input type="number" id="ninth-farsi-correct" min="0" max="15" value="0">
+                            </div>
+                            <div class="input-group">
+                                <label>تعداد پاسخ‌های غلط:</label>
+                                <input type="number" id="ninth-farsi-wrong" min="0" max="15" value="0">
+                            </div>
+                        </div>
+                        
+                        <div class="subject-box ninth-subject">
+                            <h4 class="subject-title">مطالعات اجتماعی (10 سوال - ضریب 2)</h4>
+                            <div class="input-group">
+                                <label>تعداد پاسخ‌های درست:</label>
+                                <input type="number" id="ninth-studies-correct" min="0" max="10" value="0">
+                            </div>
+                            <div class="input-group">
+                                <label>تعداد پاسخ‌های غلط:</label>
+                                <input type="number" id="ninth-studies-wrong" min="0" max="10" value="0">
+                            </div>
+                        </div>
+                        
+                        <div class="subject-box ninth-subject">
+                            <h4 class="subject-title">قرآن و پیام‌های آسمان (10 سوال - ضریب 2)</h4>
+                            <div class="input-group">
+                                <label>تعداد پاسخ‌های درست:</label>
+                                <input type="number" id="ninth-quran-correct" min="0" max="10" value="0">
+                            </div>
+                            <div class="input-group">
+                                <label>تعداد پاسخ‌های غلط:</label>
+                                <input type="number" id="ninth-quran-wrong" min="0" max="10" value="0">
+                            </div>
+                        </div>
+                        
+                        <div class="subject-box ninth-subject">
+                            <h4 class="subject-title">عربی (10 سوال - ضریب 1)</h4>
+                            <div class="input-group">
+                                <label>تعداد پاسخ‌های درست:</label>
+                                <input type="number" id="ninth-arabic-correct" min="0" max="10" value="0">
+                            </div>
+                            <div class="input-group">
+                                <label>تعداد پاسخ‌های غلط:</label>
+                                <input type="number" id="ninth-arabic-wrong" min="0" max="10" value="0">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- دفترچه دوم - استعداد تحلیلی -->
+                    <div class="booklet ninth-booklet-2">
+                        <h3 class="booklet-title">دفترچه دوم - استعداد تحلیلی (50 سوال)</h3>
+                        
+                        <div class="subject-box">
+                            <div class="input-group">
+                                <label>تعداد پاسخ‌های درست:</label>
+                                <input type="number" id="ninth-iq-correct" min="0" max="50" value="0">
+                            </div>
+                            <div class="input-group">
+                                <label>تعداد پاسخ‌های غلط:</label>
+                                <input type="number" id="ninth-iq-wrong" min="0" max="50" value="0">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- معدل کتبی -->
+                    <div class="grade-input ninth-grade">
+                        <h4>معدل کتبی نهم (برای محاسبه نمونه دولتی)</h4>
+                        <div class="input-group">
+                            <label>معدل کتبی (از 20):</label>
+                            <input type="number" id="ninth-grade" min="0" max="20" step="0.01" value="20">
+                        </div>
+                    </div>
+                    
+                    <button class="calculate-btn ninth-calculate" id="ninth-calculate-btn">محاسبه درصدها</button>
+                    
+                    <!-- نتایج -->
+                    <div class="results-container">
+                        <div class="result-item">
+                            <div class="progress-full"></div>
+                            <div class="progress-bar ninth-progress" id="ninth-progress-math"></div>
+                            <div class="result-content">
+                                <div class="result-text" id="ninth-result-math">ریاضی: -</div>
+                            </div>
+                        </div>
+                        
+                        <div class="result-item">
+                            <div class="progress-full"></div>
+                            <div class="progress-bar ninth-progress" id="ninth-progress-science"></div>
+                            <div class="result-content">
+                                <div class="result-text" id="ninth-result-science">علوم: -</div>
+                            </div>
+                        </div>
+                        
+                        <div class="result-item">
+                            <div class="progress-full"></div>
+                            <div class="progress-bar ninth-progress" id="ninth-progress-farsi"></div>
+                            <div class="result-content">
+                                <div class="result-text" id="ninth-result-farsi">فارسی: -</div>
+                            </div>
+                        </div>
+                        
+                        <div class="result-item">
+                            <div class="progress-full"></div>
+                            <div class="progress-bar ninth-progress" id="ninth-progress-studies"></div>
+                            <div class="result-content">
+                                <div class="result-text" id="ninth-result-studies">مطالعات: -</div>
+                            </div>
+                        </div>
+                        
+                        <div class="result-item">
+                            <div class="progress-full"></div>
+                            <div class="progress-bar ninth-progress" id="ninth-progress-quran"></div>
+                            <div class="result-content">
+                                <div class="result-text" id="ninth-result-quran">قرآن: -</div>
+                            </div>
+                        </div>
+                        
+                        <div class="result-item">
+                            <div class="progress-full"></div>
+                            <div class="progress-bar ninth-progress" id="ninth-progress-iq"></div>
+                            <div class="result-content">
+                                <div class="result-text" id="ninth-result-iq">هوش: -</div>
+                            </div>
+                        </div>
+                        
+                        <div class="result-item">
+                            <div class="progress-full"></div>
+                            <div class="progress-bar ninth-progress" id="ninth-progress-booklet1"></div>
+                            <div class="result-content">
+                                <div class="result-text" id="ninth-result-booklet1">درصد کل دفترچه اول: -</div>
+                            </div>
+                        </div>
+                        
+                        <div class="result-item final-result ninth-final">
+                            <div class="result-content">
+                                <div id="ninth-finalResult">درصد نهایی تیزهوشان: -</div>
+                            </div>
+                        </div>
+                        
+                        <div class="result-item final-result sample-result">
+                            <div class="result-content">
+                                <div id="ninth-sampleResult">درصد نهایی نمونه دولتی: -</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- بررسی کف قبولی نهم -->
+            <div class="calculator-container">
+                <div class="tool-header ninth-header">
+                    <h2 class="tool-title">بررسی کف قبولی مدارس تیزهوشان نهم</h2>
+                </div>
+                
+                <div class="selection-panel">
+                    <div class="form-group">
+                        <label for="ninth-province">استان:</label>
+                        <select id="ninth-province" class="form-control">
+                            <option value="">-- انتخاب استان --</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="ninth-city">شهر:</label>
+                        <select id="ninth-city" class="form-control" disabled>
+                            <option value="">-- ابتدا استان را انتخاب کنید --</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="ninth-field">رشته:</label>
+                        <select id="ninth-field" class="form-control">
+                            <option value="">-- همه رشته‌ها --</option>
+                            <option value="ریاضی فیزیک">ریاضی فیزیک</option>
+                            <option value="علوم تجربی">علوم تجربی</option>
+                            <option value="ادبیات و علوم انسانی">ادبیات و علوم انسانی</option>
+                        </select>
+                    </div>
+                    
+                    <button id="ninth-search-btn" class="btn ninth-btn" disabled>جستجو</button>
+                </div>
+                
+                <div class="school-results" id="ninth-results-container">
+                    <div class="results-header">
+                        <div class="results-title" id="ninth-results-title"></div>
+                        <div class="results-count" id="ninth-results-count"></div>
+                    </div>
+                    
+                    <div id="ninth-results-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>نام مدرسه</th>
+                                    <th>رشته</th>
+                                    <th>کف قبولی</th>
+                                    <th>جنسیت</th>
+                                </tr>
+                            </thead>
+                            <tbody id="ninth-table-body">
+                                <!-- Results will be filled by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div id="ninth-no-results" class="no-results" style="display: none;">
+                        موردی یافت نشد
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // داده‌های مدارس ششم
+        const sixthGradeData = [
+            {province: "آذربایجان شرقی", city: "تبریز", school: "شهید مدنی", score: 39494, gender: "پسر"},
+            {province: "آذربایجان شرقی", city: "تبریز", school: "علامه طباطبایی", score: 34236, gender: "پسر"},
+            {province: "آذربایجان شرقی", city: "تبریز", school: "فرزانگان", score: 33551, gender: "دختر"},
+            // ... (بقیه داده‌های ششم)
+        ];
+
+        // داده‌های مدارس نهم
+        const ninthGradeData = [
+            {province: "آذربایجان شرقی", city: "تبریز", school: "استاد شهریار", field: "علوم تجربی", score: 44613, gender: "پسر"},
+            {province: "آذربایجان شرقی", city: "تبریز", school: "شهید مدنی(سمپاد)", field: "علوم تجربی", score: 37170, gender: "پسر"},
+            {province: "آذربایجان شرقی", city: "تبریز", school: "علامه طباطبایی", field: "علوم تجربی", score: 33997, gender: "پسر"},
+            // ... (بقیه داده‌های نهم)
+        ];
+
+        // مرتب‌سازی داده‌ها بر اساس نمره (نزولی)
+        sixthGradeData.sort((a, b) => b.score - a.score);
+        ninthGradeData.sort((a, b) => b.score - a.score);
+
+        // انتخاب پایه تحصیلی
+        const gradeSelect = document.getElementById('grade-select');
+        const sixthTools = document.getElementById('sixth-tools');
+        const ninthTools = document.getElementById('ninth-tools');
+
+        gradeSelect.addEventListener('change', function() {
+            const grade = this.value;
+            
+            sixthTools.classList.remove('active-tool');
+            ninthTools.classList.remove('active-tool');
+            
+            if (grade === 'sixth') {
+                sixthTools.classList.add('active-tool');
+                initSixthTools();
+            } else if (grade === 'ninth') {
+                ninthTools.classList.add('active-tool');
+                initNinthTools();
+            }
+        });
+
+        // تابع نمایش نتیجه با نوار پیشرفت
+        function showResult(elementId, progressId, title, percent) {
+            const finalPercent = Math.max(0, Math.min(100, percent));
+            document.getElementById(elementId).textContent = 
+                `${title}: ${finalPercent.toFixed(2)}%`;
+            if (progressId) {
+                document.getElementById(progressId).style.width = `${finalPercent}%`;
+            }
+        }
+
+        // ---------- توابع مربوط به پایه ششم ----------
+        function initSixthTools() {
+            // پر کردن لیست استان‌ها (مرتب شده بر اساس الفبا)
+            const sixthProvinceSelect = document.getElementById('sixth-province');
+            sixthProvinceSelect.innerHTML = '<option value="">-- انتخاب استان --</option>';
+            
+            const sixthProvinces = [...new Set(sixthGradeData.map(item => item.province))].sort((a, b) => a.localeCompare(b));
+            
+            sixthProvinces.forEach(province => {
+                const option = document.createElement('option');
+                option.value = province;
+                option.textContent = province;
+                sixthProvinceSelect.appendChild(option);
+            });
+
+            // رویداد تغییر استان برای ششم
+            sixthProvinceSelect.addEventListener('change', function() {
+                const province = this.value;
+                const sixthCitySelect = document.getElementById('sixth-city');
+                
+                if (province) {
+                    // فعال کردن انتخاب شهر
+                    sixthCitySelect.disabled = false;
+                    sixthCitySelect.innerHTML = '<option value="">-- انتخاب شهر --</option>';
+                    document.getElementById('sixth-search-btn').disabled = true;
+                    
+                    // استخراج شهرهای مربوط به استان انتخاب شده
+                    const cities = [...new Set(sixthGradeData
+                        .filter(item => item.province === province)
+                        .map(item => item.city))].sort((a, b) => a.localeCompare(b));
+                    
+                    // پر کردن لیست شهرها
+                    cities.forEach(city => {
+                        const option = document.createElement('option');
+                        option.value = city;
+                        option.textContent = city;
+                        sixthCitySelect.appendChild(option);
+                    });
+                } else {
+                    // غیرفعال کردن انتخاب شهر اگر استان انتخاب نشده باشد
+                    sixthCitySelect.innerHTML = '<option value="">-- ابتدا استان را انتخاب کنید --</option>';
+                    sixthCitySelect.disabled = true;
+                    document.getElementById('sixth-search-btn').disabled = true;
+                }
+            });
+
+            // رویداد تغییر شهر برای ششم
+            document.getElementById('sixth-city').addEventListener('change', function() {
+                document.getElementById('sixth-search-btn').disabled = !this.value;
+            });
+
+            // رویداد کلیک دکمه جستجو برای ششم
+            document.getElementById('sixth-search-btn').addEventListener('click', function() {
+                const province = document.getElementById('sixth-province').value;
+                const city = document.getElementById('sixth-city').value;
+                
+                // فیلتر کردن داده‌ها بر اساس انتخاب‌ها
+                let filteredData = sixthGradeData.filter(item => 
+                    item.province === province && item.city === city
+                );
+                
+                // نمایش نتایج
+                displaySixthResults(province, city, filteredData);
+            });
+
+            // تابع نمایش نتایج ششم
+            function displaySixthResults(province, city, data) {
+                const resultsContainer = document.getElementById('sixth-results-container');
+                const resultsTitle = document.getElementById('sixth-results-title');
+                const resultsCount = document.getElementById('sixth-results-count');
+                const tableBody = document.getElementById('sixth-table-body');
+                const noResults = document.getElementById('sixth-no-results');
+                
+                // تنظیم عنوان نتایج
+                resultsTitle.textContent = `نتایج جستجو برای ${city}، ${province}`;
+                
+                // نمایش تعداد نتایج
+                resultsCount.textContent = `${data.length} مورد یافت شد`;
+                
+                // پاک کردن جدول قبلی
+                tableBody.innerHTML = '';
+                
+                // پر کردن جدول با داده‌ها
+                if (data.length > 0) {
+                    noResults.style.display = 'none';
+                    
+                    data.forEach(item => {
+                        const row = document.createElement('tr');
+                        row.className = 'sixth-row';
+                        
+                        row.innerHTML = `
+                            <td>${item.school}</td>
+                            <td>${item.score.toLocaleString('fa-IR')}</td>
+                            <td>${item.gender}</td>
+                        `;
+                        
+                        tableBody.appendChild(row);
+                    });
+                } else {
+                    noResults.style.display = 'block';
+                }
+                
+                // نمایش بخش نتایج
+                resultsContainer.style.display = 'block';
+            }
+
+            // محاسبات آزمون ششم
+            document.getElementById('sixth-calculate-btn').addEventListener('click', function() {
+                try {
+                    // دریافت مقادیر دفترچه اول (هوش)
+                    const iqCorrect = parseInt(document.getElementById('sixth-iq-correct').value) || 0;
+                    const iqWrong = parseInt(document.getElementById('sixth-iq-wrong').value) || 0;
+                    
+                    // دریافت مقادیر دفترچه دوم (سرعت و دقت)
+                    const speedCorrect = parseInt(document.getElementById('sixth-speed-correct').value) || 0;
+                    const speedWrong = parseInt(document.getElementById('sixth-speed-wrong').value) || 0;
+                    
+                    // محاسبه نمره خام هر دفترچه
+                    const rawIQ = Math.max(0, iqCorrect - (iqWrong / 3));
+                    const rawSpeed = Math.max(0, speedCorrect - (speedWrong / 3));
+                    
+                    // محاسبه درصد هر دفترچه
+                    const percentIQ = (rawIQ / 60) * 100;
+                    const percentSpeed = (rawSpeed / 60) * 100;
+                    
+                    // محاسبه درصد نهایی با ضرایب (هوش ضریب 3 - سرعت و دقت ضریب 1)
+                    const totalScore = (rawIQ * 3) + (rawSpeed * 1);
+                    const maxScore = (60 * 3) + (60 * 1);
+                    const finalPercent = (totalScore / maxScore) * 100;
+                    
+                    // نمایش نتایج
+                    showResult('sixth-result-iq', 'sixth-progress-iq', 'دفترچه هوش', percentIQ);
+                    showResult('sixth-result-speed', 'sixth-progress-speed', 'دفترچه سرعت و دقت', percentSpeed);
+                    
+                    document.getElementById('sixth-finalResult').textContent = 
+                        `درصد نهایی تیزهوشان: ${Math.max(0, Math.min(100, finalPercent)).toFixed(2)}%`;
+                        
+                } catch(error) {
+                    console.error('خطا در محاسبه:', error);
+                    alert('خطایی در محاسبه رخ داده است. لطفاً مقادیر را بررسی کنید.');
+                }
+            });
+        }
+
+        // ---------- توابع مربوط به پایه نهم ----------
+        function initNinthTools() {
+            // پر کردن لیست استان‌ها (مرتب شده بر اساس الفبا)
+            const ninthProvinceSelect = document.getElementById('ninth-province');
+            ninthProvinceSelect.innerHTML = '<option value="">-- انتخاب استان --</option>';
+            
+            const ninthProvinces = [...new Set(ninthGradeData.map(item => item.province))].sort((a, b) => a.localeCompare(b));
+            
+            ninthProvinces.forEach(province => {
+                const option = document.createElement('option');
+                option.value = province;
+                option.textContent = province;
+                ninthProvinceSelect.appendChild(option);
+            });
+
+            // رویداد تغییر استان برای نهم
+            ninthProvinceSelect.addEventListener('change', function() {
+                const province = this.value;
+                const ninthCitySelect = document.getElementById('ninth-city');
+                
+                if (province) {
+                    // فعال کردن انتخاب شهر
+                    ninthCitySelect.disabled = false;
+                    ninthCitySelect.innerHTML = '<option value="">-- انتخاب شهر --</option>';
+                    document.getElementById('ninth-search-btn').disabled = true;
+                    
+                    // استخراج شهرهای مربوط به استان انتخاب شده
+                    const cities = [...new Set(ninthGradeData
+                        .filter(item => item.province === province)
+                        .map(item => item.city))].sort((a, b) => a.localeCompare(b));
+                    
+                    // پر کردن لیست شهرها
+                    cities.forEach(city => {
+                        const option = document.createElement('option');
+                        option.value = city;
+                        option.textContent = city;
+                        ninthCitySelect.appendChild(option);
+                    });
+                } else {
+                    // غیرفعال کردن انتخاب شهر اگر استان انتخاب نشده باشد
+                    ninthCitySelect.innerHTML = '<option value="">-- ابتدا استان را انتخاب کنید --</option>';
+                    ninthCitySelect.disabled = true;
+                    document.getElementById('ninth-search-btn').disabled = true;
+                }
+            });
+
+            // رویداد تغییر شهر برای نهم
+            document.getElementById('ninth-city').addEventListener('change', function() {
+                document.getElementById('ninth-search-btn').disabled = !this.value;
+            });
+
+            // رویداد کلیک دکمه جستجو برای نهم
+            document.getElementById('ninth-search-btn').addEventListener('click', function() {
+                const province = document.getElementById('ninth-province').value;
+                const city = document.getElementById('ninth-city').value;
+                const field = document.getElementById('ninth-field').value;
+                
+                // فیلتر کردن داده‌ها بر اساس انتخاب‌ها
+                let filteredData = ninthGradeData.filter(item => 
+                    item.province === province && 
+                    item.city === city &&
+                    (field === '' || item.field === field)
+                );
+                
+                // نمایش نتایج
+                displayNinthResults(province, city, field, filteredData);
+            });
+
+            // تابع نمایش نتایج نهم
+            function displayNinthResults(province, city, field, data) {
+                const resultsContainer = document.getElementById('ninth-results-container');
+                const resultsTitle = document.getElementById('ninth-results-title');
+                const resultsCount = document.getElementById('ninth-results-count');
+                const tableBody = document.getElementById('ninth-table-body');
+                const noResults = document.getElementById('ninth-no-results');
+                
+                // تنظیم عنوان نتایج
+                let title = `نتایج جستجو برای ${city}، ${province}`;
+                if (field) {
+                    title += ` (رشته ${field})`;
+                }
+                resultsTitle.textContent = title;
+                
+                // نمایش تعداد نتایج
+                resultsCount.textContent = `${data.length} مورد یافت شد`;
+                
+                // پاک کردن جدول قبلی
+                tableBody.innerHTML = '';
+                
+                // پر کردن جدول با داده‌ها
+                if (data.length > 0) {
+                    noResults.style.display = 'none';
+                    
+                    data.forEach(item => {
+                        const row = document.createElement('tr');
+                        row.className = 'ninth-row';
+                        
+                        row.innerHTML = `
+                            <td>${item.school}</td>
+                            <td>${item.field}</td>
+                            <td>${item.score.toLocaleString('fa-IR')}</td>
+                            <td>${item.gender}</td>
+                        `;
+                        
+                        tableBody.appendChild(row);
+                    });
+                } else {
+                    noResults.style.display = 'block';
+                }
+                
+                // نمایش بخش نتایج
+                resultsContainer.style.display = 'block';
+            }
+
+            // محاسبات آزمون نهم
+            document.getElementById('ninth-calculate-btn').addEventListener('click', function() {
+                try {
+                    // دریافت مقادیر دفترچه اول
+                    const mathCorrect = parseInt(document.getElementById('ninth-math-correct').value) || 0;
+                    const mathWrong = parseInt(document.getElementById('ninth-math-wrong').value) || 0;
+                    const scienceCorrect = parseInt(document.getElementById('ninth-science-correct').value) || 0;
+                    const scienceWrong = parseInt(document.getElementById('ninth-science-wrong').value) || 0;
+                    const farsiCorrect = parseInt(document.getElementById('ninth-farsi-correct').value) || 0;
+                    const farsiWrong = parseInt(document.getElementById('ninth-farsi-wrong').value) || 0;
+                    const studiesCorrect = parseInt(document.getElementById('ninth-studies-correct').value) || 0;
+                    const studiesWrong = parseInt(document.getElementById('ninth-studies-wrong').value) || 0;
+                    const quranCorrect = parseInt(document.getElementById('ninth-quran-correct').value) || 0;
+                    const quranWrong = parseInt(document.getElementById('ninth-quran-wrong').value) || 0;
+                    const arabicCorrect = parseInt(document.getElementById('ninth-arabic-correct').value) || 0;
+                    const arabicWrong = parseInt(document.getElementById('ninth-arabic-wrong').value) || 0;
+                    
+                    // دریافت مقادیر دفترچه دوم
+                    const iqCorrect = parseInt(document.getElementById('ninth-iq-correct').value) || 0;
+                    const iqWrong = parseInt(document.getElementById('ninth-iq-wrong').value) || 0;
+                    
+                    // دریافت معدل کتبی
+                    const grade = parseFloat(document.getElementById('ninth-grade').value) || 20;
+                    const normalizedGrade = Math.min(20, Math.max(0, grade));
+                    
+                    // محاسبه نمره خام هر درس
+                    const rawMath = Math.max(0, mathCorrect - (mathWrong / 3));
+                    const rawScience = Math.max(0, scienceCorrect - (scienceWrong / 3));
+                    const rawFarsi = Math.max(0, farsiCorrect - (farsiWrong / 3));
+                    const rawStudies = Math.max(0, studiesCorrect - (studiesWrong / 3));
+                    const rawQuran = Math.max(0, quranCorrect - (quranWrong / 3));
+                    const rawArabic = Math.max(0, arabicCorrect - (arabicWrong / 3));
+                    const rawIQ = Math.max(0, iqCorrect - (iqWrong / 3));
+                    
+                    // محاسبه درصد هر درس
+                    const percentMath = (rawMath / 15) * 100;
+                    const percentScience = (rawScience / 15) * 100;
+                    const percentFarsi = (rawFarsi / 15) * 100;
+                    const percentStudies = (rawStudies / 10) * 100;
+                    const percentQuran = (rawQuran / 10) * 100;
+                    const percentArabic = (rawArabic / 10) * 100;
+                    const percentIQ = (rawIQ / 50) * 100;
+                    
+                    // محاسبه درصد کل دفترچه اول با ضرایب
+                    const booklet1Score = (rawMath * 3) + (rawScience * 3) + (rawFarsi * 2) + 
+                                         (rawStudies * 2) + (rawQuran * 2) + (rawArabic * 1);
+                    const booklet1Max = (15 * 3) + (15 * 3) + (15 * 2) + (10 * 2) + (10 * 2) + (10 * 1);
+                    const percentBooklet1 = (booklet1Score / booklet1Max) * 100;
+                    
+                    // محاسبه درصد نهایی تیزهوشان (میانگین دو دفترچه)
+                    const tizhooshanPercent = (percentBooklet1 + percentIQ) / 2;
+                    
+                    // محاسبه درصد نمونه دولتی (60% دفترچه اول، 10% دفترچه دوم، 30% معدل)
+                    const gradePercent = (normalizedGrade / 20) * 100;
+                    const samplePercent = (percentBooklet1 * 0.6) + (percentIQ * 0.1) + (gradePercent * 0.3);
+                    
+                    // نمایش نتایج
+                    showResult('ninth-result-math', 'ninth-progress-math', 'ریاضی', percentMath);
+                    showResult('ninth-result-science', 'ninth-progress-science', 'علوم', percentScience);
+                    showResult('ninth-result-farsi', 'ninth-progress-farsi', 'فارسی', percentFarsi);
+                    showResult('ninth-result-studies', 'ninth-progress-studies', 'مطالعات', percentStudies);
+                    showResult('ninth-result-quran', 'ninth-progress-quran', 'قرآن', percentQuran);
+                    showResult('ninth-result-iq', 'ninth-progress-iq', 'هوش', percentIQ);
+                    showResult('ninth-result-booklet1', 'ninth-progress-booklet1', 'درصد کل دفترچه اول', percentBooklet1);
+                    
+                    document.getElementById('ninth-finalResult').textContent = 
+                        `درصد نهایی تیزهوشان: ${Math.max(0, Math.min(100, tizhooshanPercent)).toFixed(2)}%`;
+                    document.getElementById('ninth-sampleResult').textContent = 
+                        `درصد نهایی نمونه دولتی: ${Math.max(0, Math.min(100, samplePercent)).toFixed(2)}%`;
+                        
+                } catch(error) {
+                    console.error('خطا در محاسبه:', error);
+                    alert('خطایی در محاسبه رخ داده است. لطفاً مقادیر را بررسی کنید.');
+                }
+            });
+        }
+    </script>
+</body>
+</html>
