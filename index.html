@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ابزارهای تیزهوشان | ریاضی و هوش</title>
+    <title>محمدرضا محمدی | ریاضی و هوش</title>
     <link href="https://cdn.jsdelivr.net/gh/rastikerdar/iransans-web@latest/css/iransans.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
@@ -609,6 +609,15 @@
                             <option value="">-- ابتدا استان را انتخاب کنید --</option>
                         </select>
                     </div>
+
+                    <div class="form-group">
+                        <label for="sixth-gender">جنسیت:</label>
+                        <select id="sixth-gender" class="form-control">
+                            <option value="">همه</option>
+                            <option value="دختر">دختر</option>
+                            <option value="پسر">پسر</option>
+                        </select>
+                    </div>
                     
                     <button id="sixth-search-btn" class="btn sixth-btn" disabled>جستجو</button>
                 </div>
@@ -857,6 +866,15 @@
                             <option value="ادبیات و علوم انسانی">ادبیات و علوم انسانی</option>
                         </select>
                     </div>
+
+                    <div class="form-group">
+                        <label for="ninth-gender">جنسیت:</label>
+                        <select id="ninth-gender" class="form-control">
+                            <option value="">همه</option>
+                            <option value="دختر">دختر</option>
+                            <option value="پسر">پسر</option>
+                        </select>
+                    </div>
                     
                     <button id="ninth-search-btn" class="btn ninth-btn" disabled>جستجو</button>
                 </div>
@@ -892,20 +910,475 @@
     </div>
 
     <script>
-        // داده‌های مدارس ششم
+        // داده‌های مدارس ششم (مرتب شده بر اساس استان و شهر)
         const sixthGradeData = [
+            // آذربایجان شرقی
             {province: "آذربایجان شرقی", city: "تبریز", school: "شهید مدنی", score: 39494, gender: "پسر"},
             {province: "آذربایجان شرقی", city: "تبریز", school: "علامه طباطبایی", score: 34236, gender: "پسر"},
             {province: "آذربایجان شرقی", city: "تبریز", school: "فرزانگان", score: 33551, gender: "دختر"},
-            // ... (بقیه داده‌های ششم)
+            {province: "آذربایجان شرقی", city: "تبریز", school: "علامه امینی", score: 32073, gender: "پسر"},
+            {province: "آذربایجان شرقی", city: "تبریز", school: "فرزانگان", score: 30577, gender: "دختر"},
+            {province: "آذربایجان شرقی", city: "تبریز", school: "فرزانگان", score: 30198, gender: "دختر"},
+            {province: "آذربایجان شرقی", city: "تبریز", school: "علامه جعفری", score: 30079, gender: "پسر"},
+            {province: "آذربایجان شرقی", city: "تبریز", school: "استاد شهریار", score: 29404, gender: "پسر"},
+            {province: "آذربایجان شرقی", city: "مراغه", school: "شهید بهشتی", score: 26875, gender: "پسر"},
+            {province: "آذربایجان شرقی", city: "اهر", school: "فرزانگان", score: 20575, gender: "دختر"},
+            
+            // آذربایجان غربی
+            {province: "آذربایجان غربی", city: "بوکان", school: "فرهیختگان۲", score: 15641, gender: "پسر"},
+            {province: "آذربایجان غربی", city: "خوی", school: "فرزانگان", score: 25725, gender: "دختر"},
+            {province: "آذربایجان غربی", city: "مهاباد", school: "شهید بهشتی", score: 13890, gender: "پسر"},
+            
+            // اردبیل
+            {province: "اردبیل", city: "اردبیل", school: "فرزانگان۱", score: 33095, gender: "دختر"},
+            {province: "اردبیل", city: "اردبیل", school: "شهید بهشتی۲", score: 27470, gender: "پسر"},
+            {province: "اردبیل", city: "اردبیل", school: "دبیرستان دوره اول شهید بهشتی۱", score: 30942, gender: "پسر"},
+            {province: "اردبیل", city: "پارس آباد", school: "شهید بهشتی", score: 21394, gender: "پسر"},
+            {province: "اردبیل", city: "خلخال", school: "فرزانگان", score: 15558, gender: "دختر"},
+            {province: "اردبیل", city: "خلخال", school: "شهید بهشتی", score: 13829, gender: "پسر"},
+            
+            // اصفهان
+            {province: "اصفهان", city: "اصفهان", school: "فرزانگان امین", score: 27827, gender: "دختر"},
+            {province: "اصفهان", city: "اصفهان", school: "مرکز آموزشی شهید اژه ای", score: 27698, gender: "پسر"},
+            {province: "اصفهان", city: "اصفهان", school: "شهید اژه ای (سمپاد)", score: 30714, gender: "پسر"},
+            {province: "اصفهان", city: "شاهین شهر", school: "فرزاانگان امین", score: 24642, gender: "دختر"},
+            {province: "اصفهان", city: "خمینی شهر", school: "شهید اژه ای", score: 21339, gender: "پسر"},
+            {province: "اصفهان", city: "خمینی شهر", school: "فرزانگان امین", score: 19434, gender: "دختر"},
+            
+            // البرز
+            {province: "البرز", city: "کرج", school: "شهید باهنر۳", score: 30277, gender: "پسر"},
+            {province: "البرز", city: "کرج", school: "فرزانگان۳", score: 28134, gender: "دختر"},
+            {province: "البرز", city: "کرج", school: "شهید باهنر۱", score: 25843, gender: "پسر"},
+            {province: "البرز", city: "کرج", school: "فرزاگان۱", score: 25049, gender: "دختر"},
+            {province: "البرز", city: "کرج", school: "شهید باهنر۴", score: 23234, gender: "پسر"},
+            {province: "البرز", city: "کرج", school: "فرزانگان۴", score: 22648, gender: "دختر"},
+            {province: "البرز", city: "کرج", school: "فرزانگان۲", score: 22619, gender: "دختر"},
+            {province: "البرز", city: "هشتگرد", school: "فرزانگان۵", score: 17430, gender: "دختر"},
+            {province: "البرز", city: "ساوجبلاغ", school: "فرزانگان۵", score: 21115, gender: "دختر"},
+            
+            // ایلام
+            {province: "ایلام", city: "ایلام", school: "فرزانگان۲", score: 24083, gender: "دختر"},
+            {province: "ایلام", city: "ایلام", school: "شهید بهشتی(ایلام)", score: 24524, gender: "پسر"},
+            
+            // بوشهر
+            {province: "بوشهر", city: "بوشهر", school: "فرزانگان", score: 21964, gender: "دختر"},
+            {province: "بوشهر", city: "بوشهر", school: "شهید بهشتی", score: 22197, gender: "پسر"},
+            {province: "بوشهر", city: "دشتستان", school: "فرزانگان", score: 18535, gender: "دختر"},
+            {province: "بوشهر", city: "کنگان", school: "فرزانگان", score: 11996, gender: "دختر"},
+            
+            // چهارمحال و بختیاری
+            {province: "چهارمحال و بختیاری", city: "بروجن", school: "شهید بهشتی", score: 13467, gender: "پسر"},
+            {province: "چهارمحال و بختیاری", city: "بروجن", school: "فرزانگان", score: 25672, gender: "دختر"},
+            {province: "چهارمحال و بختیاری", city: "شهرکرد", school: "شهید بهشتی", score: 30566, gender: "پسر"},
+            
+            // خراسان جنوبی
+            {province: "خراسان جنوبی", city: "طبس", school: "فرزانگان شهدای سایپا", score: 24738, gender: "دختر"},
+            
+            // خراسان رضوی
+            {province: "خراسان رضوی", city: "مشهد", school: "هاشمی نژاد۱", score: 35426, gender: "پسر"},
+            {province: "خراسان رضوی", city: "مشهد", school: "فرزانگان۱", score: 31220, gender: "دختر"},
+            {province: "خراسان رضوی", city: "نیشابور", school: "شهید بهشتی", score: 29394, gender: "پسر"},
+            {province: "خراسان رضوی", city: "مشهد", school: "فرزانگان۲", score: 27807, gender: "دختر"},
+            {province: "خراسان رضوی", city: "سبزوار", school: "شهید بهشتی", score: 27509, gender: "پسر"},
+            {province: "خراسان رضوی", city: "مشهد", school: "فرزانگان۴", score: 25476, gender: "دختر"},
+            {province: "خراسان رضوی", city: "سبزوار", school: "فرزانگان", score: 24980, gender: "دختر"},
+            {province: "خراسان رضوی", city: "مشهد", school: "فرزانگان۳", score: 24424, gender: "دختر"},
+            {province: "خراسان رضوی", city: "تربت حیدریه", school: "شهید بهشتی", score: 33425, gender: "پسر"},
+            {province: "خراسان رضوی", city: "قوچان", school: "شهید بهشتی", score: 26371, gender: "پسر"},
+            {province: "خراسان رضوی", city: "کاشمر", school: "شهید بهشتی", score: 18871, gender: "پسر"},
+            
+            // خراسان شمالی
+            {province: "خراسان شمالی", city: "بجنورد", school: "شهید بهشتی", score: 24900, gender: "پسر"},
+            {province: "خراسان شمالی", city: "اسفراین", school: "فرزانگان", score: 29384, gender: "دختر"},
+            
+            // خوزستان
+            {province: "خوزستان", city: "اهواز", school: "شهید بهشتی", score: 26369, gender: "پسر"},
+            {province: "خوزستان", city: "اهواز", school: "فرزانگان", score: 24861, gender: "دختر"},
+            {province: "خوزستان", city: "اهواز", school: "فرزانگان", score: 21914, gender: "دختر"},
+            {province: "خوزستان", city: "اهواز", school: "هیات امنایی پاینده", score: 20436, gender: "دختر"},
+            {province: "خوزستان", city: "دزفول", school: "فرزانگان", score: 18948, gender: "دختر"},
+            {province: "خوزستان", city: "بهبهان", school: "طلایه داران", score: 23573, gender: "پسر"},
+            {province: "خوزستان", city: "دزفول", school: "شیخ انصاری", score: 22381, gender: "پسر"},
+            
+            // زنجان
+            {province: "زنجان", city: "زنجان", school: "فرزانگان", score: 27767, gender: "دختر"},
+            {province: "زنجان", city: "زنجان", school: "فرزانگان", score: 26767, gender: "دختر"},
+            {province: "زنجان", city: "زنجان", school: "فرزانگان۱", score: 23630, gender: "دختر"},
+            {province: "زنجан", city: "زنجان", school: "شهید بهشتی", score: 28382, gender: "پسر"},
+            {province: "زنجان", city: "ابهر", school: "فرزانگان", score: 21451, gender: "دختر"},
+            
+            // سمنان
+            // سیستان و بلوچستان
+            {province: "سیستان و بلوچستان", city: "زاهدان", school: "فرزانگان", score: 23065, gender: "دختر"},
+            {province: "سیستان و بلوچستان", city: "زاهدان", school: "شهید بهشتی", score: 22797, gender: "پسر"},
+            
+            // فارس
+            {province: "فارس", city: "نی ریز", school: "فرزانگان", score: 30882, gender: "دختر"},
+            {province: "فارس", city: "نی ریز", school: "فرزانگان۲", score: 27003, gender: "دختر"},
+            {province: "فارس", city: "نی ریز", school: "حضرت زینب(س)۱", score: 24920, gender: "دختر"},
+            {province: "فارس", city: "شیراز", school: "شهید دستغیب", score: 31140, gender: "پسر"},
+            {province: "فارس", city: "شیراز", school: "حاج محمد باقر نو شاد", score: 27380, gender: "پسر"},
+            {province: "فارس", city: "شیراز", school: "شهید دستغیب ۳", score: 25307, gender: "پسر"},
+            {province: "فارس", city: "جهرم", school: "فرزانگان", score: 23834, gender: "دختر"},
+            {province: "فارس", city: "مرودشت", school: "فرزانگان", score: 21739, gender: "دختر"},
+            {province: "فارس", city: "داراب", school: "شهید دستغیب", score: 18312, gender: "پسر"},
+            
+            // قزوین
+            {province: "قزوین", city: "قزوین", school: "شهید بابایی", score: 26305, gender: "پسر"},
+            {province: "قزوین", city: "قزوین", school: "فرزانگان", score: 23926, gender: "دختر"},
+            
+            // قم
+            {province: "قم", city: "قم", school: "آیت الله مشکینی", score: 23839, gender: "پسر"},
+            {province: "قم", city: "قم", school: "دکتر خرمی", score: 21666, gender: "پسر"},
+            {province: "قم", city: "قم", school: "شهید قدوسی", score: 25345, gender: "پسر"},
+            {province: "قم", city: "قم", school: "دکتر شهریاری", score: 22717, gender: "پسر"},
+            
+            // کردستان
+            {province: "کردستان", city: "اسلام آباد غرب", school: "شهید بهشتی", score: 18740, gender: "پسر"},
+            {province: "کردستان", city: "سنندج", school: "فرزانگان(سمپاد)", score: 23992, gender: "دختر"},
+            {province: "کردستان", city: "قروه", school: "استعداد های درخشان علامه حلی۲", score: 11014, gender: "پسر"},
+            
+            // کرمان
+            {province: "کرمان", city: "جیرفت", school: "علامه حلی", score: 22678, gender: "پسر"},
+            {province: "کرمان", city: "سیرجان", school: "فرزانگان", score: 27757, gender: "دختر"},
+            {province: "کرمان", city: "گنبکی", school: "فرزانگان", score: 18343, gender: "دختر"},
+            {province: "کرمان", city: "کرمان", school: "شهید محمدحسین انصاری", score: 21089, gender: "پسر"},
+            
+            // کرمانشاه
+            {province: "کرمانشاه", city: "کرمانشاه", school: "شهید بهشتی", score: 27741, gender: "پسر"},
+            {province: "کرمانشاه", city: "کرمانشاه", school: "فرزانگان(سمپاد)", score: 25690, gender: "دختر"},
+            
+            // کهگیلویه و بویراحمد
+            {province: "کهگیلویه و بویراحمد", city: "یاسوج", school: "شهید بهشتی", score: 25823, gender: "پسر"},
+            {province: "کهگیلویه و بویراحمد", city: "دهدشت", school: "شهید بهشتی", score: 20264, gender: "پسر"},
+            {province: "کهگیلویه و بویراحمد", city: "گچساران", school: "فرزانگان", score: 27794, gender: "دختر"},
+            
+            // گلستان
+            {province: "گلستان", city: "گرگان", school: "فرزاگان", score: 24563, gender: "دختر"},
+            {province: "گلستان", city: "بندرترکمن", school: "شهید بهشتی۱", score: 22480, gender: "پسر"},
+            {province: "گلستان", city: "گنبدکاووس", school: "شهید بهشتی", score: 25869, gender: "پسر"},
+            
+            // گیلان
+            {province: "گیلان", city: "رشت", school: "فرزانگان", score: 26071, gender: "دختر"},
+            {province: "گیلان", city: "رشت", school: "میرزاکوچک خان", score: 25528, gender: "پسر"},
+            {province: "گیلان", city: "لاهیجان", school: "مرکز آموزشی امام رضا(ع)", score: 19683, gender: "پسر"},
+            
+            // لرستان
+            {province: "لرستان", city: "الیگودرز", school: "شهید بهشتی", score: 22088, gender: "پسر"},
+            {province: "لرستان", city: "خرم آباد", school: "تیزهوشان(د)", score: 29693, gender: "پسر"},
+            {province: "لرستان", city: "بروجرد", school: "فرزانگان(سمپاد)", score: 22582, gender: "دختر"},
+            {province: "لرستان", city: "دورود", school: "فرزانگان", score: 17400, gender: "دختر"},
+            
+            // مازندران
+            {province: "مازندران", city: "آمل", school: "شهید بهشتی(سمپاد)", score: 32342, gender: "پسر"},
+            {province: "مازندران", city: "بهشهر", school: "استعداد های درخشان  شهید بهشتی", score: 23485, gender: "پسر"},
+            {province: "مازندران", city: "تنکابن", school: "شهید بهشتی", score: 23813, gender: "پسر"},
+            {province: "مازندران", city: "چالوس", school: "شهید بهشتی", score: 22372, gender: "پسر"},
+            {province: "مازندران", city: "ساری", school: "فرزانگان(۲)", score: 27754, gender: "دختر"},
+            {province: "مازندران", city: "قائم شهر", school: "شهید بهشتی(سمپاد)", score: 27440, gender: "پسر"},
+            
+            // مرکزی
+            {province: "مرکزی", city: "اراک", school: "فرزانگان(سمپاد)", score: 27351, gender: "دختر"},
+            {province: "مرکزی", city: "اراک", school: "علامه حلی", score: 21643, gender: "پسر"},
+            
+            // هرمزگان
+            {province: "هرمزگان", city: "بندر عباس", school: "فرزانگان(سمپاد)", score: 22549, gender: "دختر"},
+            {province: "هرمزگان", city: "بندر عباس", school: "فرزانگان(سمپاد)", score: 21765, gender: "دختر"},
+            {province: "هرمزگان", city: "بندر عباس", school: "شهید حقانی", score: 26071, gender: "پسر"},
+            {province: "هرمزگان", city: "بندر عباس", school: "اسدپور", score: 22152, gender: "پسر"},
+            {province: "هرمزگان", city: "بندر لنگه", school: "فارابی", score: 13621, gender: "پسر"},
+            {province: "هرمزگان", city: "بندرعباس", school: "فرزانگان(سمپاد)", score: 27855, gender: "دختر"},
+            
+            // همدان
+            {province: "همدان", city: "نهاوند", school: "فرزانگان", score: 17038, gender: "دختر"},
+            
+            // یزد
+            {province: "یزد", city: "یزد", school: "حکیم زاده", score: 28824, gender: "دختر"},
+            {province: "یزد", city: "یزد", school: "فرزانگان", score: 30893, gender: "دختر"},
+            {province: "یزد", city: "یزد", school: "شهید صدوقی", score: 35503, gender: "پسر"},
+            {province: "یزد", city: "یزد", school: "برازنده مقدم", score: 32927, gender: "پسر"},
+            
+            // تهران
+            {province: "تهران", city: "تهران", school: "فرزانگان۱", score: 31547, gender: "دختر"},
+            {province: "تهران", city: "تهران", school: "فرزانگان", score: 30547, gender: "دختر"},
+            {province: "تهران", city: "تهران", school: "فرزانگان۵", score: 29375, gender: "دختر"},
+            {province: "تهران", city: "تهران", school: "فرزانگان۲", score: 28531, gender: "دختر"},
+            {province: "تهران", city: "تهران", school: "فرزانگان۸", score: 25892, gender: "دختر"},
+            {province: "تهران", city: "تهران", school: "فرزانگان ۸", score: 25882, gender: "دختر"},
+            {province: "تهران", city: "تهران", school: "فرزانگان۴", score: 25664, gender: "دختر"},
+            {province: "تهران", city: "تهران", school: "فرزانگان۶", score: 25406, gender: "دختر"},
+            {province: "تهران", city: "تهران", school: "فرزانگان۳", score: 24682, gender: "دختر"},
+            {province: "تهران", city: "گلستان", school: "فرزانگان", score: 22619, gender: "دختر"},
+            {province: "تهران", city: "اندیشه", school: "فرزانگان", score: 20634, gender: "دختر"},
+            {province: "تهران", city: "ملارد", school: "فرزانگان شهدای مدافع حرم", score: 18015, gender: "دختر"},
+            {province: "تهران", city: "پرند", school: "فرزانگان۱", score: 16765, gender: "دختر"},
+            {province: "تهران", city: "چهاردانگه", school: "فرزانگان", score: 13928, gender: "دختر"},
+            {province: "تهران", city: "تهران", school: "علامه حلی۱", score: 33273, gender: "پسر"},
+            {province: "تهران", city: "تهران", school: "علامه حلی۵", score: 32490, gender: "پسر"},
+            {province: "تهران", city: "تهران", school: "علامه حلی۲", score: 29990, gender: "پسر"},
+            {province: "تهران", city: "تهران", school: "علامه حلی۳", score: 28938, gender: "پسر"},
+            {province: "تهران", city: "تهران", school: "علامه حلی۶", score: 28859, gender: "پسر"},
+            {province: "تهران", city: "تهران", school: "علامه حلی۹", score: 26865, gender: "پسر"},
+            {province: "تهران", city: "تهران", school: "علامه حلی۴", score: 26597, gender: "پسر"},
+            {province: "تهران", city: "تهران", school: "علامه حلی۱۰", score: 26259, gender: "پسر"},
+            {province: "تهران", city: "تهران", school: "علامه حلی۷", score: 24117, gender: "پسر"},
+            {province: "تهران", city: "ری", school: "شهید بهشتی", score: 23730, gender: "پسر"},
+            {province: "تهران", city: "اسلامشهر", school: "شهید رجایی", score: 22906, gender: "پسر"},
+            {province: "تهران", city: "ری", school: "شهید بهشتی", score: 21875, gender: "پسر"},
+            {province: "تهران", city: "پاکدشت", school: "سید رضی", score: 13585, gender: "پسر"}
         ];
 
-        // داده‌های مدارس نهم
+        // داده‌های مدارس نهم (مرتب شده بر اساس استان و شهر)
         const ninthGradeData = [
+            // آذربایجان شرقی
+            {province: "آذربایجان شرقی", city: "بناب", school: "فرزانگان(استعداد های درخشان)", field: "علوم تجربی", score: 26772, gender: "دختر"},
+            {province: "آذربایجان شرقی", city: "تبریز", school: "فرزانگان(سمپاد)", field: "علوم تجربی", score: 33290, gender: "دختر"},
+            {province: "آذربایجان شرقی", city: "تبریز", school: "فرزانگان ناحیه۱", field: "علوم تجربی", score: 32124, gender: "دختر"},
+            {province: "آذربایجان شرقی", city: "تبریز", school: "فرزانگان ناحیه۳", field: "علوم تجربی", score: 30932, gender: "دختر"},
+            {province: "آذربایجان شرقی", city: "تبریز", school: "فرزانگان۲", field: "علوم تجربی", score: 30072, gender: "دختر"},
+            {province: "آذربایجان شرقی", city: "تبریز", school: "فرزانگان ناحیه۵", field: "علوم تجربی", score: 29557, gender: "دختر"},
+            {province: "آذربایجان شرقی", city: "میانه", school: "فرزانگان", field: "علوم تجربی", score: 21407, gender: "دختر"},
             {province: "آذربایجان شرقی", city: "تبریز", school: "استاد شهریار", field: "علوم تجربی", score: 44613, gender: "پسر"},
             {province: "آذربایجان شرقی", city: "تبریز", school: "شهید مدنی(سمپاد)", field: "علوم تجربی", score: 37170, gender: "پسر"},
             {province: "آذربایجان شرقی", city: "تبریز", school: "علامه طباطبایی", field: "علوم تجربی", score: 33997, gender: "پسر"},
-            // ... (بقیه داده‌های نهم)
+            {province: "آذربایجان شرقی", city: "تبریز", school: "علامه امینی", field: "علوم تجربی", score: 32146, gender: "پسر"},
+            {province: "آذربایجان شرقی", city: "تبریز", school: "علامه جعفری", field: "علوم تجربی", score: 31434, gender: "پسر"},
+            {province: "آذربایجان شرقی", city: "مراغه", school: "شهید بهشتی(تیزهوشان)", field: "علوم تجربی", score: 28418, gender: "پسر"},
+            {province: "آذربایجان شرقی", city: "اهر", school: "علامه حلی", field: "علوم تجربی", score: 22411, gender: "پسر"},
+            {province: "آذربایجان شرقی", city: "تبریز", school: "شهید مدنی(سمپاد)", field: "ریاضی فیزیک", score: 32679, gender: "پسر"},
+            {province: "آذربایجان شرقی", city: "تبریز", school: "علامه طباطبایی", field: "ریاضی فیزیک", score: 30579, gender: "پسر"},
+            {province: "آذربایجان شرقی", city: "تبریز", school: "علامه امینی", field: "ریاضی فیزیک", score: 28274, gender: "پسر"},
+            {province: "آذربایجان شرقی", city: "تبریز", school: "استاد شهریار", field: "ریاضی فیزیک", score: 25493, gender: "پسر"},
+            {province: "آذربایجان شرقی", city: "تبریز", school: "علامه جعفری", field: "ریاضی فیزیک", score: 25249, gender: "پسر"},
+            {province: "آذربایجان شرقی", city: "ملکان", school: "شهید نظیری", field: "ادبیات و علوم انسانی", score: 37083, gender: "پسر"},
+            
+            // آذربایجان غربی
+            {province: "آذربایجان غربی", city: "خوی", school: "فرزانگان", field: "علوم تجربی", score: 25725, gender: "دختر"},
+            {province: "آذربایجان غربی", city: "مهاباد", school: "شهید بهشتی", field: "علوم تجربی", score: 13890, gender: "پسر"},
+            
+            // اردبیل
+            {province: "اردبیل", city: "خلخال", school: "فرزانگان", field: "علوم تجربی", score: 15558, gender: "دختر"},
+            {province: "اردبیل", city: "خلخال", school: "شهید بهشتی", field: "علوم تجربی", score: 13829, gender: "پسر"},
+            
+            // اصفهان
+            {province: "اصفهان", city: "اصفهان", school: "فرزانگان امین اصفهان", field: "علوم تجربی", score: 33525, gender: "دختر"},
+            {province: "اصفهان", city: "اصفهان", school: "نادریان_فرزانگان امین۳", field: "علوم تجربی", score: 30518, gender: "دختر"},
+            {province: "اصفهان", city: "اصفهان", school: "نژاد ستاری(فرزانگان امین)", field: "علوم تجربی", score: 25026, gender: "دختر"},
+            {province: "اصفهان", city: "خمینی شهر", school: "فرزانگان امین", field: "علوم تجربی", score: 19434, gender: "دختر"},
+            {province: "اصفهان", city: "اصفهان", school: "فرزانگان امین اصفهان (سمپاد)", field: "ریاضی فیزیک", score: 24926, gender: "دختر"},
+            {province: "اصفهان", city: "اصفهان", school: "شهید اژه ای اصفهان(سمپاد)", field: "علوم تجربی", score: 35922, gender: "پسر"},
+            {province: "اصفهان", city: "اصفهان", school: "شهید اژه ای", field: "علوم تجربی", score: 26475, gender: "پسر"},
+            {province: "اصفهان", city: "اصفهان", school: "صارمیه(شهید اژه ای)", field: "علوم تجربی", score: 25044, gender: "پسر"},
+            {province: "اصفهان", city: "اصفهان", school: "شهید اژه ای اصفهان(سمپاد)", field: "ریاضی فیزیک", score: 32216, gender: "پسر"},
+            {province: "اصفهان", city: "کاشان", school: "شهید بهشتی(سمپاد)", field: "ریاضی فیزیک", score: 24424, gender: "پسر"},
+            
+            // البرز
+            {province: "البرز", city: "کرج", school: "فرزانگان۳", field: "علوم تجربی", score: 28959, gender: "دختر"},
+            {province: "البرز", city: "کرج", school: "فرزانگان۱", field: "علوم تجربی", score: 26755, gender: "دختر"},
+            {province: "البرز", city: "کرج", school: "فرزانگان۴", field: "علوم تجربی", score: 25790, gender: "دختر"},
+            {province: "البرز", city: "کرج", school: "فرزانگان۲", field: "علوم تجربی", score: 23577, gender: "دختر"},
+            {province: "البرز", city: "ساوجبلاغ", school: "فرزانگان۵", field: "علوم تجربی", score: 21115, gender: "دختر"},
+            {province: "البرز", city: "کرج", school: "فرزانگان۳", field: "ریاضی فیزیک", score: 26554, gender: "دختر"},
+            {province: "البرز", city: "کرج", school: "شهید سلطانی۳", field: "علوم تجربی", score: 29527, gender: "پسر"},
+            {province: "البرز", city: "کرج", school: "شهید سلطانی۱", field: "علوم تجربی", score: 25755, gender: "پسر"},
+            {province: "البرز", city: "کرج", school: "شهید سلطانی۴", field: "علوم تجربی", score: 24742, gender: "پسر"},
+            {province: "البرز", city: "کرج", school: "شهید سلطانی۳", field: "ریاضی فیزیک", score: 29649, gender: "پسر"},
+            {province: "البرز", city: "کرج", school: "شهید سلطانی۱", field: "ریاضی فیزیک", score: 26135, gender: "پسر"},
+            {province: "البرز", city: "کرج", school: "محمدامین۲", field: "ریاضی فیزیک", score: 21102, gender: "پسر"},
+            
+            // ایلام
+            {province: "ایلام", city: "ایلام", school: "فرزانگان۲", field: "علوم تجربی", score: 24083, gender: "دختر"},
+            {province: "ایلام", city: "ایلام", school: "شهید بهشتی(ایلام)", field: "علوم تجربی", score: 24524, gender: "پسر"},
+            
+            // بوشهر
+            {province: "بوشهر", city: "بوشهر", school: "فرزانگان(بوشهر)", field: "علوم تجربی", score: 28034, gender: "دختر"},
+            {province: "بوشهر", city: "بوشهر", school: "شهید بهشتی", field: "علوم تجربی", score: 22197, gender: "پسر"},
+            {province: "بوشهر", city: "بوشهر", school: "شهید بهشتی", field: "ریاضی فیزیک", score: 23577, gender: "پسر"},
+            {province: "بوشهر", city: "دشتستان", school: "فرزانگان", field: "علوم تجربی", score: 18535, gender: "دختر"},
+            {province: "بوشهر", city: "کنگان", school: "فرزانگان", field: "علوم تجربی", score: 11996, gender: "دختر"},
+            
+            // چهارمحال و بختیاری
+            {province: "چهارمحال و بختیاری", city: "بروجن", school: "شهید بهشتی", field: "ریاضی فیزیک", score: 13467, gender: "پسر"},
+            {province: "چهارمحال و بختیاری", city: "بروجن", school: "شهید بهشتی", field: "علوم تجربی", score: 18618, gender: "پسر"},
+            {province: "چهارمحال و بختیاری", city: "شهرکرد", school: "شهید بهشتی", field: "علوم تجربی", score: 30566, gender: "پسر"},
+            {province: "چهارمحال و بختیاری", city: "بروجن", school: "فرزانگان", field: "علوم تجربی", score: 25672, gender: "دختر"},
+            {province: "چهارمحال و بختیاری", city: "بروجن", school: "فرزانگان", field: "ادبیات و علوم انسانی", score: 16767, gender: "دختر"},
+            
+            // خراسان جنوبی
+            {province: "خراسان جنوبی", city: "طبس", school: "فرزانگان شهدای سایپا", field: "علوم تجربی", score: 24738, gender: "دختر"},
+            
+            // خراسان رضوی
+            {province: "خراسان رضوی", city: "مشهد", school: "فرزانگان(مشهد)", field: "علوم تجربی", score: 37022, gender: "دختر"},
+            {province: "خراسان رضوی", city: "نیشابور", school: "فرزانگان(نیشابور)", field: "علوم تجربی", score: 32967, gender: "دختر"},
+            {province: "خراسان رضوی", city: "مشهد", school: "فرزانگان۵(فاتح)", field: "علوم تجربی", score: 32674, gender: "دختر"},
+            {province: "خراسان رضوی", city: "مشهد", school: "فرزانگان۳", field: "علوم تجربی", score: 29649, gender: "دختر"},
+            {province: "خراسان رضوی", city: "مشهد", school: "فرزانگان۲", field: "علوم تجربی", score: 28527, gender: "دختر"},
+            {province: "خراسان رضوی", city: "مشهد", school: "شهید هاشمی نژاد", field: "علوم تجربی", score: 38074, gender: "پسر"},
+            {province: "خراسان رضوی", city: "تربت حیدریه", school: "شهید بهشتی", field: "علوم تجربی", score: 33425, gender: "پسر"},
+            {province: "خراسان رضوی", city: "مشهد", school: "شهید هاشمی نژاد۳", field: "علوم تجربی", score: 32142, gender: "پسر"},
+            {province: "خراسان رضوی", city: "مشهد", school: "شهید هاشمی نژاد(۲)", field: "علوم تجربی", score: 31351, gender: "پسر"},
+            {province: "خراسان رضوی", city: "مشهد", school: "حاج جعفر برزگر", field: "علوم تجربی", score: 29405, gender: "پسر"},
+            {province: "خراسان رضوی", city: "سبزوار", school: "مرکز آموزشی شهید بهشتی", field: "علوم تجربی", score: 26554, gender: "پسر"},
+            {province: "خراسان رضوی", city: "قوچان", school: "شهید بهشتی", field: "علوم تجربی", score: 26371, gender: "پسر"},
+            {province: "خراسان رضوی", city: "نیشابور", school: "شهید بهشتی(نیشابور)", field: "ریاضی فیزیک", score: 24280, gender: "پسر"},
+            {province: "خراسان رضوی", city: "سبزوار", school: "مرکز آموزشی شهید بهشتی", field: "ریاضی فیزیک", score: 21826, gender: "پسر"},
+            {province: "خراسان رضوی", city: "کاشمر", school: "شهید بهشتی", field: "ریاضی فیزیک", score: 18871, gender: "پسر"},
+            {province: "خراسان رضوی", city: "سبزوار", school: "مرکز آموزشی شهید بهشتی", field: "ادبیات و علوم انسانی", score: 15698, gender: "پسر"},
+            
+            // خراسان شمالی
+            {province: "خراسان شمالی", city: "بجنورد", school: "فرزانگان تیزهوشان", field: "علوم تجربی", score: 25987, gender: "دختر"},
+            
+            // خوزستان
+            {province: "خوزستان", city: "اهواز", school: "فرزانگان ناحیه۴", field: "علوم تجربی", score: 30339, gender: "دختر"},
+            {province: "خوزستان", city: "اهواز", school: "فرزانگان۴", field: "علوم تجربی", score: 27676, gender: "دختر"},
+            {province: "خوزستان", city: "اهواز", school: "فرزانگان ناحیه۱", field: "علوم تجربی", score: 22796, gender: "دختر"},
+            {province: "خوزستان", city: "اهواز", school: "فرزانگان۳", field: "علوم تجربی", score: 22739, gender: "دختر"},
+            {province: "خوزستان", city: "دزفول", school: "فرزانگان(جدید و فعلی)", field: "علوم تجربی", score: 21770, gender: "دختر"},
+            {province: "خوزستان", city: "بهبهان", school: "طلایه داران", field: "ریاضی فیزیک", score: 16422, gender: "دختر"},
+            {province: "خوزستان", city: "اهواز", school: "شهید بهشتی", field: "علوم تجربی", score: 35232, gender: "پسر"},
+            {province: "خوزستان", city: "بهبهان", school: "طلایه داران", field: "علوم تجربی", score: 23573, gender: "پسر"},
+            {province: "خوزستان", city: "اهواز", school: "شهید بهشتی۲", field: "علوم تجربی", score: 23311, gender: "پسر"},
+            {province: "خوزستان", city: "اهواز", school: "طلایه داران", field: "علوم تجربی", score: 22699, gender: "پسر"},
+            {province: "خوزستان", city: "دزفول", school: "شیخ انصاری", field: "علوم تجربی", score: 22381, gender: "پسر"},
+            {province: "خوزستان", city: "دزفول", school: "شیخ انصاری", field: "ریاضی فیزیک", score: 18160, gender: "پسر"},
+            
+            // زنجان
+            {province: "زنجان", city: "ابهر", school: "فرزانگان", field: "ریاضی فیزیک", score: 12240, gender: "دختر"},
+            {province: "زنجان", city: "ابهر", school: "فرزانگان", field: "علوم تجربی", score: 21451, gender: "دختر"},
+            
+            // سمنان
+            // سیستان و بلوچستان
+            {province: "سیستان و بلوچستان", city: "زاهدان", school: "فرزانگان", field: "علوم تجربی", score: 23065, gender: "دختر"},
+            {province: "سیستان و بلوچستان", city: "زاهدان", school: "شهید بهشتی", field: "علوم تجربی", score: 22797, gender: "پسر"},
+            
+            // فارس
+            {province: "فارس", city: "شیراز", school: "فرزانگان", field: "علوم تجربی", score: 30775, gender: "دختر"},
+            {province: "فارس", city: "شیراز", school: "فرزانگان۲", field: "علوم تجربی", score: 30675, gender: "دختر"},
+            {province: "فارس", city: "شیراز", school: "حضرت زینب(س)", field: "علوم تجربی", score: 27964, gender: "دختر"},
+            {province: "فارس", city: "جهرم", school: "فرزانگان", field: "علوم تجربی", score: 23834, gender: "دختر"},
+            {province: "فارس", city: "مرودشت", school: "فرزانگان", field: "علوم تجربی", score: 21739, gender: "دختر"},
+            {province: "فارس", city: "شیراز", school: "شهید دستغیب۲ ناحیه۱", field: "علوم تجربی", score: 30086, gender: "پسر"},
+            {province: "فارس", city: "شیراز", school: "محمد رسول الله(ص)", field: "علوم تجربی", score: 27060, gender: "پسر"},
+            {province: "فارس", city: "جهرم", school: "آیت الله شب زنده دار جهرمی", field: "علوم تجربی", score: 23071, gender: "پسر"},
+            {province: "فارس", city: "فسا", school: "استعداد های درخشان  فلاحی", field: "علوم تجربی", score: 21936, gender: "پسر"},
+            {province: "فارس", city: "مرودشت", school: "شهید دستغیب", field: "علوم تجربی", score: 18893, gender: "پسر"},
+            {province: "فارس", city: "داراب", school: "شهید دستغیب", field: "علوم تجربی", score: 18312, gender: "پسر"},
+            {province: "فارس", city: "آباده", school: "سعدی", field: "ریاضی فیزیک", score: 15763, gender: "پسر"},
+            {province: "فارس", city: "شیراز", school: "شهید دستغیب", field: "ریاضی فیزیک", score: 31936, gender: "پسر"},
+            {province: "فارس", city: "شیراز", school: "شهید دستغیب۲", field: "ریاضی فیزیک", score: 27497, gender: "پسر"},
+            {province: "فارس", city: "شیراز", school: "محمد رسول الله(ص)", field: "ریاضی فیزیک", score: 25698, gender: "پسر"},
+            
+            // قزوین
+            {province: "قزوین", city: "قزوین", school: "شهید بابایی", field: "علوم تجربی", score: 26305, gender: "پسر"},
+            {province: "قزوین", city: "قزوین", school: "فرزانگان", field: "علوم تجربی", score: 23926, gender: "دختر"},
+            {province: "قزوین", city: "قزوین", school: "شهید بابایی", field: "ریاضی فیزیک", score: 24061, gender: "پسر"},
+            {province: "قزوین", city: "قزوین", school: "فرزانگان", field: "ریاضی فیزیک", score: 21892, gender: "دختر"},
+            
+            // قم
+            {province: "قم", city: "قم", school: "شهید قدوسی", field: "ریاضی فیزیک", score: 25345, gender: "پسر"},
+            {province: "قم", city: "قم", school: "شهید قدوسی", field: "علوم تجربی", score: 28724, gender: "پسر"},
+            {province: "قم", city: "قم", school: "دکتر شهریاری", field: "ریاضی فیزیک", score: 22717, gender: "پسر"},
+            {province: "قم", city: "قم", school: "دکتر شهریاری", field: "علوم تجربی", score: 25982, gender: "پسر"},
+            
+            // کردستان
+            {province: "کردستان", city: "سنندج", school: "فرزانگان(سمپاد)", field: "علوم تجربی", score: 23992, gender: "دختر"},
+            {province: "کردستان", city: "سنندج", school: "دبیرستان دخترانه استعداد های درخشان فرزانگان", field: "علوم تجربی", score: 22481, gender: "دختر"},
+            {province: "کردستان", city: "سنندج", school: "فرزانگان(سمپاد)", field: "ریاضی فیزیک", score: 16143, gender: "دختر"},
+            {province: "کردستان", city: "سنندج", school: "دبیرستان دخترانه استعداد های درخشان فرزانگان", field: "ریاضی فیزیک", score: 16112, gender: "دختر"},
+            
+            // کرمان
+            {province: "کرمان", city: "جیرفت", school: "مرکز آموزشی علامه حلی(سمپاد)", field: "علوم تجربی", score: 28636, gender: "پسر"},
+            {province: "کرمان", city: "سیرجان", school: "حضرت آیت الله خامنه ای", field: "ریاضی فیزیک", score: 22769, gender: "پسر"},
+            {province: "کرمان", city: "سیرجان", school: "حضرت آیت الله خامنه ای", field: "علوم تجربی", score: 24546, gender: "پسر"},
+            {province: "کرمان", city: "کرمان", school: "شهید محمدحسین انصاری", field: "ریاضی فیزیک", score: 21089, gender: "پسر"},
+            {province: "کرمان", city: "کرمان", school: "علامه حلی(سمپاد)", field: "علوم تجربی", score: 26506, gender: "پسر"},
+            
+            // کرمانشاه
+            {province: "کرمانشاه", city: "کرمانشاه", school: "شهید بهشتی", field: "علوم تجربی", score: 27741, gender: "پسر"},
+            {province: "کرمانشاه", city: "کرمانشاه", school: "شهید بهشتی", field: "ریاضی فیزیک", score: 20517, gender: "پسر"},
+            {province: "کرمانشاه", city: "کرمانشاه", school: "فرزانگان(سمپاد)", field: "علوم تجربی", score: 25690, gender: "دختر"},
+            
+            // کهگیلویه و بویراحمد
+            {province: "کهگیلویه و بویراحمد", city: "دهدشت", school: "شهید بهشتی", field: "علوم تجربی", score: 20264, gender: "پسر"},
+            {province: "کهگیلویه و بویراحمد", city: "گچساران", school: "فرزانگان", field: "علوم تجربی", score: 27794, gender: "دختر"},
+            {province: "کهگیلویه و بویراحمد", city: "یاسوج", school: "شهید بهشتی (سمپاد)", field: "علوم تجربی", score: 25786, gender: "پسر"},
+            
+            // گلستان
+            {province: "گلستان", city: "گرگان", school: "شهید بهشتی(گرگان)", field: "علوم تجربی", score: 29911, gender: "پسر"},
+            {province: "گلستان", city: "گنبدکاووس", school: "شهید بهشتی", field: "علوم تجربی", score: 25869, gender: "پسر"},
+            
+            // گیلان
+            {province: "گیلان", city: "رشت", school: "فرزانگان", field: "علوم تجربی", score: 23236, gender: "دختر"},
+            {province: "گیلان", city: "رشت", school: "فرزانگان", field: "ریاضی فیزیک", score: 23778, gender: "دختر"},
+            {province: "گیلان", city: "رشت", school: "میرزاکوچک خان", field: "علوم تجربی", score: 25528, gender: "پسر"},
+            {province: "گیلان", city: "رشت", school: "میرزاکوچک خان۲", field: "علوم تجربی", score: 22739, gender: "پسر"},
+            {province: "گیلان", city: "لاهیجان", school: "مرکز آموزشی امام رضا(ع)", field: "علوم تجربی", score: 19683, gender: "پسر"},
+            
+            // لرستان
+            {province: "لرستان", city: "الیگودرز", school: "شهید بهشتی", field: "علوم تجربی", score: 22088, gender: "پسر"},
+            {province: "لرستان", city: "خرم آباد", school: "تیزهوشان(د)", field: "علوم تجربی", score: 29693, gender: "پسر"},
+            {province: "لرستان", city: "خرم آباد", school: "تیزهوشان(د)", field: "ریاضی فیزیک", score: 19958, gender: "پسر"},
+            {province: "لرستان", city: "بروجرد", school: "فرزانگان(سمپاد)", field: "علوم تجربی", score: 22582, gender: "دختر"},
+            {province: "لرستان", city: "دورود", school: "فرزانگان", field: "علوم تجربی", score: 17400, gender: "دختر"},
+            
+            // مازندران
+            {province: "مازندران", city: "آمل", school: "شهید بهشتی(سمپاد)", field: "علوم تجربی", score: 32342, gender: "پسر"},
+            {province: "مازندران", city: "بهشهر", school: "استعداد های درخشان  شهید بهشتی", field: "علوم تجربی", score: 23485, gender: "پسر"},
+            {province: "مازندران", city: "تنکابن", school: "شهید بهشتی", field: "علوم تجربی", score: 23813, gender: "پسر"},
+            {province: "مازندران", city: "چالوس", school: "شهید بهشتی", field: "علوم تجربی", score: 22372, gender: "پسر"},
+            {province: "مازندران", city: "ساری", school: "فرزانگان(۲)", field: "علوم تجربی", score: 27754, gender: "دختر"},
+            {province: "مازندران", city: "قائم شهر", school: "شهید بهشتی(سمپاد)", field: "علوم تجربی", score: 27440, gender: "پسر"},
+            
+            // مرکزی
+            {province: "مرکزی", city: "اراک", school: "علامه حلی(سمپاد)", field: "ریاضی فیزیک", score: 22014, gender: "پسر"},
+            
+            // هرمزگان
+            {province: "هرمزگان", city: "بندرعباس", school: "فرزانگان(سمپاد)", field: "علوم تجربی", score: 27855, gender: "دختر"},
+            {province: "هرمزگان", city: "بندرعباس", school: "فرزانگان(سمپاد)", field: "ریاضی فیزیک", score: 18055, gender: "دختر"},
+            {province: "بندرعباس", city: "بندرعباس", school: "اسدپور", field: "ریاضی فیزیک", score: 20814, gender: "پسر"},
+            {province: "بندرعباس", city: "بندرعباس", school: "اسدپور", field: "علوم تجربی", score: 19172, gender: "پسر"},
+            {province: "بندرعباس", city: "بندرعباس", school: "شهید حقانی(سمپادد)", field: "ریاضی فیزیک", score: 24144, gender: "پسر"},
+            {province: "بندرعباس", city: "بندرعباس", school: "شهید حقانی(سمپادد)", field: "علوم تجربی", score: 22115, gender: "پسر"},
+            
+            // همدان
+            {province: "همدان", city: "نهاوند", school: "فرزانگان", field: "علوم تجربی", score: 17038, gender: "دختر"},
+            
+            // یزد
+            {province: "یزد", city: "یزد", school: "حکیم زاده", field: "علوم تجربی", score: 28824, gender: "دختر"},
+            {province: "یزد", city: "یزد", school: "فرزانگان", field: "علوم تجربی", score: 30893, gender: "دختر"},
+            {province: "یزد", city: "یزد", school: "شهید صدوقی", field: "علوم تجربی", score: 35503, gender: "پسر"},
+            {province: "یزد", city: "یزد", school: "برازنده مقدم", field: "علوم تجربی", score: 31173, gender: "پسر"},
+            {province: "یزد", city: "یزد", school: "حکیم زاده", field: "ریاضی فیزیک", score: 24703, gender: "دختر"},
+            {province: "یزد", city: "یزد", school: "شهید صدوقی(یزد)", field: "ریاضی فیزیک", score: 34543, gender: "پسر"},
+            {province: "یزد", city: "یزد", school: "برازنده مقدم", field: "ریاضی فیزیک", score: 32927, gender: "پسر"},
+            
+            // تهران
+            {province: "تهران", city: "تهران", school: "فرزانگان(سمپاد)", field: "علوم تجربی", score: 31242, gender: "دختر"},
+            {province: "تهران", city: "تهران", school: "فرزانگان۴", field: "علوم تجربی", score: 31055, gender: "دختر"},
+            {province: "تهران", city: "تهران", school: "فرزاگان۲", field: "علوم تجربی", score: 27702, gender: "دختر"},
+            {province: "تهران", city: "تهران", school: "فرزانگان۶", field: "علوم تجربی", score: 26737, gender: "دختر"},
+            {province: "تهران", city: "تهران", school: "فرزانگان۵", field: "علوم تجربی", score: 26672, gender: "دختر"},
+            {province: "تهران", city: "تهران", school: "مکتب الاحرار", field: "ریاضی فیزیک", score: 42052, gender: "دختر"},
+            {province: "تهران", city: "تهران", school: "فرزانگان(سمپاد)", field: "ریاضی فیزیک", score: 36380, gender: "دختر"},
+            {province: "تهران", city: "تهران", school: "فرزانگان۶", field: "ریاضی فیزیک", score: 25279, gender: "دختر"},
+            {province: "تهران", city: "اسلامشهر", school: "فرزانگان", field: "ریاضی فیزیک", score: 19094, gender: "دختر"},
+            {province: "تهران", city: "تهران", school: "علامه حلی(سمپاد)", field: "ریاضی فیزیک", score: 36193, gender: "پسر"},
+            {province: "تهران", city: "تهران", school: "علامه حلی(سمپاد)", field: "علوم تجربی", score: 34508, gender: "پسر"},
+            {province: "تهران", city: "تهران", school: "علامه حلی۴", field: "ریاضی فیزیک", score: 31430, gender: "پسر"},
+            {province: "تهران", city: "تهران", school: "علامه حلی۵", field: "ریاضی فیزیک", score: 31400, gender: "پسر"},
+            {province: "تهران", city: "تهران", school: "علامه حلی۱۰", field: "ریاضی فیزیک", score: 30326, gender: "پسر"},
+            {province: "تهران", city: "تهران", school: "علامه حلی۴", field: "علوم تجربی", score: 29396, gender: "پسر"},
+            {province: "تهران", city: "تهران", school: "علامه حلی۲", field: "ریاضی فیزیک", score: 28082, gender: "پسر"},
+            {province: "تهران", city: "تهران", school: "علامه حلی۸", field: "ریاضی فیزیک", score: 27462, gender: "پسر"},
+            {province: "تهران", city: "تهران", school: "علامه حلی۷", field: "ریاضی فیزیک", score: 27414, gender: "پسر"},
+            {province: "تهران", city: "تهران", school: "علامه حلی۵", field: "علوم تجربی", score: 27375, gender: "پسر"},
+            {province: "تهران", city: "تهران", school: "علامه حلی۱۰", field: "علوم تجربی", score: 27327, gender: "پسر"},
+            {province: "تهران", city: "تهران", school: "علامه حلی۳", field: "علوم تجربی", score: 25445, gender: "پسر"},
+            {province: "تهران", city: "تهران", school: "علامه حلی۲", field: "علوم تجربی", score: 25410, gender: "پسر"},
+            {province: "تهران", city: "اسلامشهر", school: "تیزهوشان جائی", field: "ریاضی فیزیک", score: 25144, gender: "پسر"},
+            {province: "تهران", city: "تهران", school: "علامه حلی۸", field: "علوم تجربی", score: 24804, gender: "پسر"},
+            {province: "تهران", city: "تهران", school: "علامه حلی۷", field: "علوم تجربی", score: 24690, gender: "پسر"},
+            {province: "تهران", city: "اسلامشهر", school: "شهید رجایی", field: "علوم تجربی", score: 24563, gender: "پسر"}
         ];
 
         // مرتب‌سازی داده‌ها بر اساس نمره (نزولی)
@@ -997,18 +1470,21 @@
             document.getElementById('sixth-search-btn').addEventListener('click', function() {
                 const province = document.getElementById('sixth-province').value;
                 const city = document.getElementById('sixth-city').value;
+                const gender = document.getElementById('sixth-gender').value;
                 
                 // فیلتر کردن داده‌ها بر اساس انتخاب‌ها
                 let filteredData = sixthGradeData.filter(item => 
-                    item.province === province && item.city === city
+                    item.province === province && 
+                    item.city === city &&
+                    (gender === '' || item.gender === gender)
                 );
                 
                 // نمایش نتایج
-                displaySixthResults(province, city, filteredData);
+                displaySixthResults(province, city, gender, filteredData);
             });
 
             // تابع نمایش نتایج ششم
-            function displaySixthResults(province, city, data) {
+            function displaySixthResults(province, city, gender, data) {
                 const resultsContainer = document.getElementById('sixth-results-container');
                 const resultsTitle = document.getElementById('sixth-results-title');
                 const resultsCount = document.getElementById('sixth-results-count');
@@ -1016,7 +1492,11 @@
                 const noResults = document.getElementById('sixth-no-results');
                 
                 // تنظیم عنوان نتایج
-                resultsTitle.textContent = `نتایج جستجو برای ${city}، ${province}`;
+                let title = `نتایج جستجو برای ${city}، ${province}`;
+                if (gender) {
+                    title += ` (${gender})`;
+                }
+                resultsTitle.textContent = title;
                 
                 // نمایش تعداد نتایج
                 resultsCount.textContent = `${data.length} مورد یافت شد`;
@@ -1142,20 +1622,22 @@
                 const province = document.getElementById('ninth-province').value;
                 const city = document.getElementById('ninth-city').value;
                 const field = document.getElementById('ninth-field').value;
+                const gender = document.getElementById('ninth-gender').value;
                 
                 // فیلتر کردن داده‌ها بر اساس انتخاب‌ها
                 let filteredData = ninthGradeData.filter(item => 
                     item.province === province && 
                     item.city === city &&
-                    (field === '' || item.field === field)
+                    (field === '' || item.field === field) &&
+                    (gender === '' || item.gender === gender)
                 );
                 
                 // نمایش نتایج
-                displayNinthResults(province, city, field, filteredData);
+                displayNinthResults(province, city, field, gender, filteredData);
             });
 
             // تابع نمایش نتایج نهم
-            function displayNinthResults(province, city, field, data) {
+            function displayNinthResults(province, city, field, gender, data) {
                 const resultsContainer = document.getElementById('ninth-results-container');
                 const resultsTitle = document.getElementById('ninth-results-title');
                 const resultsCount = document.getElementById('ninth-results-count');
@@ -1166,6 +1648,9 @@
                 let title = `نتایج جستجو برای ${city}، ${province}`;
                 if (field) {
                     title += ` (رشته ${field})`;
+                }
+                if (gender) {
+                    title += ` (${gender})`;
                 }
                 resultsTitle.textContent = title;
                 
